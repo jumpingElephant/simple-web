@@ -38,17 +38,20 @@ class HandlerClass(SimpleHTTPRequestHandler):
             num = request[addr_pair][0]+1
             del request[addr_pair]
             request[addr_pair]=[num,ts]
+        colors = ['lightgreen', 'yellow', 'lightgray', 'lightcoral', 'lightgoldenrodyellow', 'cadetblue', 'chocolate', 'crimson', 'darkorange', 'floaralwhite']
         file=open("index.html", "w")
-        file.write("<!DOCTYPE html> <html> <body><center><h1><font color=\"blue\" face=\"Georgia, Arial\" size=8><em>Real</em></font> Visit Results</h1></center>");
+        file.write("<!DOCTYPE html> <html><head><meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" /><title>Counter</title></head> <body><center><h1><font color=\"blue\" face=\"Georgia, Arial\" size=8><em>Real</em></font> Visit Results</h1></center>");
         for pair in request:
             if pair[0] == host:
                 guest = "LOCAL: "+pair[0]
             else:
                 guest = pair[0]
             if (time_now-datetime.strptime(request[pair][1],'%Y-%m-%d %H:%M:%S')).seconds < 3:
-                file.write("<p style=\"font-size:150%\" >#"+ str(request[pair][1]) +": <font color=\"red\">"+str(request[pair][0])+ "</font> requests " + "from &lt<font color=\"blue\">"+guest+"</font>&gt to WebServer &lt<font color=\"blue\">"+pair[1]+"</font>&gt</p>")
+                file.write("<p style=\"font-size:150%\" >#"+ str(request[pair][1]) +": <span style=\"font-size:250%\"><font color=\"red\">"+str(request[pair][0])+ "</font></span> requests "
+                + "from &lt<font color=\"blue\">"+guest+"</font>&gt to WebServer &lt<span style=\"background-color:"+colors[int(pair[1].split(".")[3])%10]+"; font-size:250%\"><font color=\"navy\" >"+pair[1]+"</font></span>&gt</p>")
             else:
-                file.write("<p style=\"font-size:150%\" >#"+ str(request[pair][1]) +": <font color=\"maroon\">"+str(request[pair][0])+ "</font> requests " + "from &lt<font color=\"navy\">"+guest+"</font>&gt to WebServer &lt<font color=\"navy\">"+pair[1]+"</font>&gt</p>")
+                file.write("<p style=\"font-size:150%\" >#"+ str(request[pair][1]) +": <span style=\"font-size:250%\"><font color=\"maroon\">"+str(request[pair][0])+ "</font></span> requests "
+                + "from &lt<font color=\"navy\">"+guest+"</font>&gt to WebServer &lt<span style=\"background-color:"+colors[int(pair[1].split(".")[3])%10]+"; font-size:250%\"><font color=\"navy\" >"+pair[1]+"</font></span>&gt</p>")
         file.write("</body> </html>");
         file.close()
         pickle.dump(request,open("pickle_data.txt","w"))
