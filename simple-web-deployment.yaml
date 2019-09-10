@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-web-deployment
+  labels:
+    app: simple-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-web
+  template:
+    metadata:
+      labels:
+        app: simple-web
+    spec:
+      containers:
+        - name: simple-web
+          image: alex/simple-web:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+#          livenessProbe:
+#            httpGet:
+#              port: 80
+#              path: /
+#            periodSeconds: 2
