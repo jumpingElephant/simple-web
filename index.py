@@ -49,11 +49,11 @@ class HandlerClass(SimpleHTTPRequestHandler):
                 guest = pair[0]
             if (time_now-datetime.strptime(request[pair][1],'%Y-%m-%d %H:%M:%S')).seconds < 3:
                 logging.info(str(request[pair][0]) + " requests from " + guest + " to webserver " + pair[1])
-                file.write("<p style=\"font-size:150%\" >#"+ str(request[pair][1]) +": <span style=\"font-size:250%\"><font color=\"red\">"+str(request[pair][0])+ "</font></span> requests "
+                file.write("<p style=\"font-size:150%\" >#"+ str(request[pair][1]) +": <span style=\"background-color:"+colors[int(pair[1].split(".")[3])%10]+"; font-size:250%\"><font color=\"red\">"+str(request[pair][0])+ "</font></span> requests "
                 + "from &lt<font color=\"blue\">"+guest+"</font>&gt to WebServer &lt<span style=\"background-color:"+colors[int(pair[1].split(".")[3])%10]+"; font-size:250%\"><font color=\"navy\" >"+pair[1]+"</font></span>&gt</p>")
             else:
                 logging.info(str(request[pair][0]) + " requests from " + guest + " to webserver " + pair[1])
-                file.write("<p style=\"font-size:150%\" >#"+ str(request[pair][1]) +": <span style=\"font-size:250%\"><font color=\"maroon\">"+str(request[pair][0])+ "</font></span> requests "
+                file.write("<p style=\"font-size:150%\" >#"+ str(request[pair][1]) +": <span style=\"background-color:"+colors[int(pair[1].split(".")[3])%10]+"; font-size:250%\"><font color=\"maroon\">"+str(request[pair][0])+ "</font></span> requests "
                 + "from &lt<font color=\"navy\">"+guest+"</font>&gt to WebServer &lt<span style=\"background-color:"+colors[int(pair[1].split(".")[3])%10]+"; font-size:250%\"><font color=\"navy\" >"+pair[1]+"</font></span>&gt</p>")
         file.write("</body> </html>");
         file.close()
