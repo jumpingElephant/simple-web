@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: simple-web
-          image: alex/simple-web:latest
+          image: alex/simple-web:1
           imagePullPolicy: Never
           ports:
             - containerPort: 80
