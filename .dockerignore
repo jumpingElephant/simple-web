@@ -1,6 +1,8 @@
 .gitignore
+.dockerignore
 README.md
 Dockerfile
+.git/
 
 .idea
 *.iml
